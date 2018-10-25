@@ -15,7 +15,7 @@ def step_impl(context):
     :type context: behave.runner.Context
     """
     try:
-        context.driver = webdriver.Chrome()
+        context.driver = webdriver.Chrome("chromedriver.exe")
         context.driver.get("http://lib.usue.ru/")
         search_text = context.driver.find_element_by_xpath("//*[@id='searchfield']")
         search_text.send_keys('dfjhkjlkmnbgfxcvgh')
