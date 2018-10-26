@@ -17,12 +17,13 @@ def before_all(context):
 def after_all(context):
     listScreen = listdir(".\\screens\\")
     msg = MIMEMultipart()
-    msg["From"] = 'grimrina@yandex.ru'
-    msg["To"] = 'kosh.sob@rambler.ru'
-    msg["Subject"] = 'Тестовая тема'
+    msg["From"] = input('your e-mail: ')
+    msg["To"] = input('receiver: ')
+    msg["Subject"] = 'Тест сайта lib.usue.ru'
     msg["Date"] = formatdate(localtime=True)
+    smtp = msg["From"]
 
-    body = "hello"
+    body = f"Тест произведен в {formatdate(localtime=True)}"
     msg.attach(MIMEText(body))
 
     attachment = MIMEBase('application', 'octet-stream')
@@ -34,9 +35,10 @@ def after_all(context):
         attachment.add_header('Content-Disposition', 'attachment', filename=f"{screen}")
         msg.attach(attachment)
 
-    server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)
+    server = smtplib.SMTP(f"smtp.{smtp[smtp.index('@') + 1:]}", 587)
+    server.starttls()
     server.ehlo()
-    server.login(input('your e-mail: '), input('password: '))
+    server.login(msg["From"], input('password: '))
     text = msg.as_string()
-    server.sendmail('grimrina@yandex.ru', ['kosh.sob@rambler.ru'], text)
+    server.sendmail(msg["From"], msg["To"], text)
     server.quit()
