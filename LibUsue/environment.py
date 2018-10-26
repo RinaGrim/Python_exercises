@@ -7,6 +7,9 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.encoders import encode_base64
 from email.utils import formatdate
+import pyscreenshot as ImageGrab
+from datetime import datetime
+from behave.model_core import Status
 
 def before_all(context):
     if path.exists(".\\screens\\"):
@@ -14,7 +17,14 @@ def before_all(context):
     context.driver = webdriver.Firefox()
     mkdir(".\\screens\\")
 
+def after_step(context, step):
+    if step.status == Status.failed \
+            or step.status == Status.skipped:
+        image = ImageGrab.grab()
+        image.save(f"screens\\{datetime.strftime(datetime.now(), '%H_%M_%S_%f')}.jpg")
+
 def after_all(context):
+    context.driver.quit()
     listScreen = listdir(".\\screens\\")
     msg = MIMEMultipart()
     msg["From"] = input('your e-mail: ')
