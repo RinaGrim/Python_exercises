@@ -14,7 +14,7 @@ from behave.model_core import Status
 def before_all(context):
     if path.exists(".\\screens\\"):
         rmtree(".\\screens\\")
-    context.driver = webdriver.Firefox()
+    context.driver = webdriver.Chrome("chromedriver.exe")
     mkdir(".\\screens\\")
 
 def after_step(context, step):
