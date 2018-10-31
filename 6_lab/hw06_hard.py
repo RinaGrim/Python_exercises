@@ -40,7 +40,7 @@ def main():
                 list.append(spisok[2])
     for i in range(1, 7):
         worker = Employee(text[i])
-        worker.zarplata()
+        print(worker.zarplata())
 
 if __name__ == '__main__':
     main()
