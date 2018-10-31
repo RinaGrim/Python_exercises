@@ -15,6 +15,7 @@
 class Employee(object):
     def __init__(self, worker):
         self.worker = worker
+
     def zarplata(self):
         if self.worker[4] > self.worker[5]:
             zp = int(self.worker[2]) + 2 * int(self.worker[2]) / int(self.worker[4]) * \
@@ -35,12 +36,11 @@ def main():
     hours = [list.split() for list in hours]
     for list in text:
         for spisok in hours:
-            if spisok[0] == list[0]:
+            if spisok[1] == list[1]:
                 list.append(spisok[2])
     for i in range(1, 7):
         worker = Employee(text[i])
         worker.zarplata()
-    # print(text[3])
 
 if __name__ == '__main__':
     main()
