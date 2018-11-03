@@ -23,6 +23,11 @@ class Employee(object):
         self._hours = int(self.worker[5])
 
     def salary(self):
+
+        """ This method compares the hours worked by the employee
+            with the norm of hours, and, in accordance with this,
+            calculates the salary. """
+
         if self._hours > self._hour_norm:
             slr = self._salary + 2 * self._salary / self._hour_norm * \
                                        (self._hours - self._hour_norm)
