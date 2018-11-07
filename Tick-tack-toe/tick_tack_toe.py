@@ -29,7 +29,6 @@ def movePlayer(choice):
     if cell in field_index:
         game_field[cell - 1] = f"{choice}"
         field_index.remove(cell)
-        field()
         player_comb.append(cell)
     else:
         print("Ячейка уже занята")
