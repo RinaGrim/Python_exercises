@@ -58,7 +58,6 @@ import random
 """
 chips = [el for el in range(1, 91)]
 random.shuffle(chips)
-chip = 0
 
 
 def lotto_card():
