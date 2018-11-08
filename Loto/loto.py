@@ -131,7 +131,7 @@ def comp_move(counter, chip):
     return counter
 
 
-def steps(moving, player_counter, comp_counter):
+def steps(moving, player_counter, comp_counter, player_card, comp_card):
 
     """ This method generate steps in the game
         and also check the result """
@@ -171,14 +171,12 @@ def steps(moving, player_counter, comp_counter):
 
 
 def main():
-    global player_card
     player_card = lotto_card()
-    global comp_card
     comp_card = lotto_card()
     moving = True
     player_counter = 0
     comp_counter = 0
-    steps(moving, player_counter, comp_counter)
+    steps(moving, player_counter, comp_counter, player_card, comp_card)
 
 
 if __name__ == '__main__':
