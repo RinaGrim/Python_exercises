@@ -119,7 +119,7 @@ def display_chip():
     return chip
 
 
-def comp_move(counter):
+def comp_move(counter, chip):
 
     """ This method creates a computer step """
 
@@ -138,8 +138,8 @@ def steps(moving, player_counter, comp_counter):
         and also check the result """
 
     while moving:
-        mov = True
-        display_chip()
+        move = True
+        chip = display_chip()
         print("Карточка игрока")
         display_card(player_card)
         print("Карточка компьютера")
@@ -150,21 +150,21 @@ def steps(moving, player_counter, comp_counter):
                 player_card.insert(player_card.index(f"{chip}|"), '--|')
                 player_card.remove(f"{chip}|")
                 player_counter += 1
-                comp_move(comp_counter)
+                comp_move(comp_counter, chip)
                 moving = True
             else:
                 moving = False
-            mov = moving
+            move = moving
         elif decide == 'n':
             if f"{chip}|" in player_card:
                 moving = False
             else:
-                comp_move(comp_counter)
-            mov = moving
+                comp_move(comp_counter, chip)
+            move = moving
         if player_counter == 15 and comp_counter < 15:
             print("-- Вы выиграли! --")
             moving = False
-        elif (comp_counter == 15 and player_counter < 15) or mov == False:
+        elif (comp_counter == 15 and player_counter < 15) or not move:
             print("-- Вы проиграли! --")
             moving = False
         else:
