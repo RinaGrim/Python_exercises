@@ -62,11 +62,13 @@ chip = 0
 
 
 def lotto_card():
+
+    """ This method generate lotto card and return it as list """
+
     card = []
     row1 = []
     row2 = []
     row3 = []
-
     for _ in range(15):
         card.append(f"{random.choice(chips)}|")
     index = 0
@@ -96,6 +98,9 @@ def lotto_card():
 
 
 def display_card(card):
+
+    """ This method displays the lotto card """
+
     index = 0
     print("----------------------------")
     while index < 27:
@@ -105,12 +110,19 @@ def display_card(card):
 
 
 def display_chip():
+
+    """ This method shows the chip that came out in current step
+        and the number of remaining chips"""
+
     chip = chips.pop(0)
     print(f"Новый бочонок: {chip} (осталось {len(chips)})")
     return chip
 
 
 def comp_move(counter):
+
+    """ This method creates a computer step """
+
     if f"{chip}|" in comp_card:
         comp_card.insert(comp_card.index(f"{chip}|"), '--|')
         comp_card.remove(f"{chip}|")
@@ -121,6 +133,10 @@ def comp_move(counter):
 
 
 def steps(moving, player_counter, comp_counter):
+
+    """ This method generate steps in the game
+        and also check the result """
+
     while moving:
         mov = True
         display_chip()
