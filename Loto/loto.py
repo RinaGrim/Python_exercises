@@ -92,7 +92,6 @@ def lotto_card():
         card.append(el)
     for el in row3:
         card.append(el)
-    print(card)
     return card
 
 
@@ -165,7 +164,6 @@ def main():
     player_counter = 0
     comp_counter = 0
     steps(moving, player_counter, comp_counter)
-    print(lotto_card())
 
 
 if __name__ == '__main__':
