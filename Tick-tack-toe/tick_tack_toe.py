@@ -1,13 +1,13 @@
 import random
 import time
 
-game_field = ["|_1_|", "|_2_|", "|_3_|", "|_4_|", "|_5_|", "|_6_|", "|_7_|", "|_8_|", "|_9_|"]
+game_field = ["_1_|", "_2_|", "_3_|", "_4_|", "_5_|", "_6_|", "_7_|", "_8_|", "_9_|"]
 field_index = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 win_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
 player_comb = []
 comp_comb = []
-cross = "|_X_|"
-zero = "|_O_|"
+cross = "_X_|"
+zero = "_O_|"
 
 
 
@@ -17,7 +17,7 @@ def field():
 
     index = 0
     while index < 9:
-        print(f"{''.join(game_field[index:index + 3])}\n")
+        print(f"|{''.join(game_field[index:index + 3])}\n")
         index += 3
 
 
@@ -39,6 +39,8 @@ def moveComp(choice):
 
     """ This method creates a computer step """
 
+    comp_best_move = []
+    comp_protect_move = []
     if choice == zero:
         lens = 8
     else:
@@ -48,17 +50,26 @@ def moveComp(choice):
         cell_check(choice, cell)
     else:
         index = 0
-        while index < len(win_list):
-            comp_best_move = [element for element in win_list[index] if element not in player_comb]
+        while index < len(win_list) and comp_protect_move != 1:
+            comp_best_move.clear()
+            comp_protect_move.clear()
+            comp_protect_move = [element for element in win_list[index] if element not in player_comb]
+            comp_best_move = [element for element in win_list[index] if element not in comp_comb]
             index += 1
-            if len(comp_best_move) == 1:
-                cell = comp_best_move[0]
-                win_list.pop(index - 1)
-                cell_check(choice, cell)
-                break
-            elif len(comp_best_move) < 1:
-                cell = random.choice(field_index)
-                cell_check(choice, cell)
+            if len(comp_protect_move) == 1:
+                if len(comp_best_move) == 1:
+                    cell = comp_best_move[0]
+                    win_list.pop(index - 1)
+                    cell_check(choice, cell)
+                    break
+                else:
+                    cell = comp_protect_move[0]
+                    win_list.pop(index - 1)
+                    cell_check(choice, cell)
+                    break
+        if len(comp_protect_move) > 1:
+            cell = random.choice(field_index)
+            cell_check(choice, cell)
 
 
 def cell_check(choice, cell):
@@ -100,12 +111,12 @@ def check(number):
                 break
         if len(player) == 3:
             print("== Вы выиграли! ==")
-        elif len(comp) == 3:
-            print("== Вы проиграли! ==")
+        elif len(field_index) < 1:
+            print("== Ничья ==")
         elif len(player) < 3 and len(comp) < 3 and len(field_index) > 2:
             check(number)
         else:
-            print("== Ничья ==")
+            print("== Вы проиграли! ==")
 
 
 def main():
